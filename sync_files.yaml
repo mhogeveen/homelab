@@ -1,0 +1,17 @@
+---
+- name: Synchronize files
+  hosts: all
+
+  tasks:
+    # - name: Print all available facts
+    #   ansible.builtin.debug:
+    #     var: ansible_facts
+
+    - name: Synchronize glance config
+      when: inventory_hostname == 'glance'
+      ansible.builtin.copy:
+        src: glance/glance.yml
+        dest: /opt/glance/glance.yml
+        owner: root
+        group: root
+        mode: "0644"

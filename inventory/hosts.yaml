@@ -1,0 +1,15 @@
+pve:
+  hosts:
+    proxmox:
+  vars:
+    ansible_connection: ssh
+    ansible_user: root
+    ansible_python_interpreter: auto_silent
+
+lxc:
+  hosts:
+    glance:
+  vars:
+    ansible_connection: ssh
+    ansible_user: root
+    ansible_python_interpreter: auto_silent

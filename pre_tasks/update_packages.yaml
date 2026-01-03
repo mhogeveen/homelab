@@ -1,0 +1,26 @@
+---
+- name: Update packages
+  become: true
+  when: (ansible_facts['distribution'] == "Ubuntu") or (ansible_facts['distribution'] == "Debian")
+  block:
+    - name: apt update
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+
+    - name: apt upgrade
+      apt:
+        upgrade: dist
+
+    - name: remove old packages and clean cache
+      apt:
+        autoremove: yes
+        autoclean: yes
+        clean: yes
+
+    # - name: Update 'pacman' cache
+    #   community.general.pacman:
+    #     update_cache: true
+    #   when: ansible_facts['distribution'] == "Archlinux"
+    #   changed_when: false
