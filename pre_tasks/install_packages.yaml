@@ -6,4 +6,5 @@
       - curl
       - git
       - neovim
+      - jq
     state: present
