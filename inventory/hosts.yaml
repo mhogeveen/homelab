@@ -9,6 +9,7 @@ pve:
 lxc:
   hosts:
     glance:
+    qbittorrent:
   vars:
     ansible_connection: ssh
     ansible_user: root

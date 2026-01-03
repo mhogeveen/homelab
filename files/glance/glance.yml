@@ -33,6 +33,9 @@ pages:
               - title: Home Assistant
                 url: https://homeassistant.welara-turtle.ts.net
                 icon: si:homeassistant
+              - title: qBittorrent
+                url: https://qbittorrent.welara-turtle.ts.net
+                icon: si:qbittorrent
 
       - size: small
         widgets:

@@ -15,3 +15,12 @@
         owner: root
         group: root
         mode: "0644"
+
+    - name: Synchronize qBittorrent config
+      when: inventory_hostname == 'qbittorrent'
+      ansible.builtin.copy:
+        src: qbittorrent/qBittorrent.conf
+        dest: ~/.config/qBittorrent/qBittorrent.conf
+        owner: root
+        group: root
+        mode: "0644"
