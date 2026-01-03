@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/not-first/glance-schema/master/schema.json
+
 theme:
   background-color: 240 21 15
   contrast-multiplier: 1.2
@@ -6,8 +8,7 @@ theme:
   negative-color: 347 70 65
 
 pages:
-  - name: Startpage
-    width: slim
+  - name: Home
     hide-desktop-navigation: true
     center-vertically: true
     columns:
@@ -15,14 +16,7 @@ pages:
         widgets:
           - type: search
             autofocus: true
-          - type: bookmarks
-            groups:
-              - title: General
-                links:
-                  - title: Google
-                    url: https://www.google.com/
-                  - title: Helper Scripts
-                    url: https://github.com/community-scripts/ProxmoxVE
+
           - type: monitor
             cache: 1m
             title: Services
@@ -33,3 +27,26 @@ pages:
               - title: Home Assistant
                 url: https://homeassistant.welara-turtle.ts.net
                 icon: si:homeassistant
+
+      - size: small
+        widgets:
+          - type: clock
+            hour-format: 24h
+
+          - type: weather
+            location: Hilversum, The Netherlands
+            units: metric
+            hour-format: 24h
+
+          - type: repository
+            repository: mhogeveen/homelab
+            pull-requests-limit: 5
+            issues-limit: 3
+            commits-limit: 3
+
+          - type: custom-api
+            title: Random Fact
+            cache: 6h
+            url: https://uselessfacts.jsph.pl/api/v2/facts/random
+            template: |
+              <p class="size-h4 color-paragraph">{{ .JSON.String "text" }}</p>
