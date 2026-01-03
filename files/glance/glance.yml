@@ -17,6 +17,12 @@ pages:
           - type: search
             autofocus: true
 
+          - type: bookmarks
+            groups:
+              - links:
+                  - title: ProxmoxVE Helper Scripts
+                    url: https://community-scripts.github.io/ProxmoxVE/
+
           - type: monitor
             cache: 1m
             title: Services
