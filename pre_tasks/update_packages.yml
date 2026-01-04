@@ -18,9 +18,3 @@
         autoremove: yes
         autoclean: yes
         clean: yes
-
-    # - name: Update 'pacman' cache
-    #   community.general.pacman:
-    #     update_cache: true
-    #   when: ansible_facts['distribution'] == "Archlinux"
-    #   changed_when: false

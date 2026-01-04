@@ -23,6 +23,7 @@ Anything and everything regarding my homelab setup.
 ## Usage
 
 ```bash
-just configure-system   # General host configuration
-just sync-files         # Synchronize host configuration files
+just run [HOST] <[ARGS]>    # Run playbook for host
+just sync-files [HOST]      # Synchronize host configuration files
+just compose [HOST]         # Start services in 'lxc' host group
 ```

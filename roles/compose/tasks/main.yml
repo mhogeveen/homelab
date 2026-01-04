@@ -1,0 +1,11 @@
+---
+- name: Compose
+  community.docker.docker_compose_v2:
+    project_src: /docker/{{inventory_hostname}}/
+    pull: missing
+    build: always
+  register: output
+
+- name: Show results
+  ansible.builtin.debug:
+    var: output

@@ -1,0 +1,22 @@
+---
+- hosts: all
+  pre_tasks:
+    - name: Update packages
+      ansible.builtin.import_tasks: pre_tasks/update_packages.yml
+
+    - name: Install packages
+      ansible.builtin.import_tasks: pre_tasks/install_packages.yml
+
+    - name: Configure config directory
+      ansible.builtin.import_tasks: pre_tasks/configure_config_directory.yml
+
+# - hosts: proxmox
+#   roles:
+#     - role:
+
+- hosts: glance
+  roles:
+    - role: sync-files
+      tags: sync-files
+    - role: compose
+      tags: compose

@@ -1,0 +1,11 @@
+---
+- name: Synchronize glance files
+  when: inventory_hostname == 'glance'
+  block:
+    - name: Copy
+      ansible.builtin.copy:
+        src: glance/
+        dest: /docker/glance/
+        owner: root
+        group: root
+        mode: "0644"

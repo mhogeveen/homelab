@@ -1,5 +1,8 @@
-configure-system:
-  @ansible-playbook configure_system.yaml
+run HOST *ARGS:
+  @ansible-playbook run.yml --limit {{HOST}} {{ARGS}}
 
-sync-files:
-  @ansible-playbook sync_files.yaml
+sync-files HOST:
+  @ansible-playbook run.yml --limit {{HOST}} --tags sync-files
+
+compose HOST:
+  @ansible-playbook run.yml --limit {{HOST}} --tags compose
