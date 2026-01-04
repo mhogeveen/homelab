@@ -9,3 +9,14 @@
         owner: root
         group: root
         mode: "0644"
+
+- name: Synchronize pi-hole files
+  when: inventory_hostname == 'pi-hole'
+  block:
+    - name: Copy
+      ansible.builtin.copy:
+        src: pi-hole/
+        dest: /docker/pi-hole/
+        owner: root
+        group: root
+        mode: "0644"

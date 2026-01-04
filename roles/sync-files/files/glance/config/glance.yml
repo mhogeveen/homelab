@@ -36,6 +36,9 @@ pages:
               - title: qBittorrent
                 url: https://qbittorrent.welara-turtle.ts.net
                 icon: si:qbittorrent
+              - title: Pi-hole
+                url: https://pi-hole.welara-turtle.ts.net/admin
+                icon: si:pihole
 
       - size: small
         widgets:

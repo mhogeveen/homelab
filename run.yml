@@ -20,3 +20,10 @@
       tags: sync-files
     - role: compose
       tags: compose
+
+- hosts: pi-hole
+  roles:
+    - role: sync-files
+      tags: sync-files
+    - role: compose
+      tags: compose
