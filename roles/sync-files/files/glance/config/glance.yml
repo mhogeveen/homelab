@@ -40,6 +40,18 @@ pages:
                 url: https://pi-hole.welara-turtle.ts.net/admin
                 icon: si:pihole
 
+          - type: split-column
+            widgets:
+              - type: dns-stats
+                service: pihole-v6
+                url: https://pi-hole.welara-turtle.ts.net
+                password: ${PI_HOLE_PASSWORD}
+                hour-format: 24h
+
+              - type: html
+                source: |
+                  <div hidden>placeholder</div>
+
       - size: small
         widgets:
           - type: clock
