@@ -51,6 +51,7 @@ pages:
             hour-format: 24h
 
           - type: repository
+            cache: 1m
             repository: mhogeveen/homelab
             pull-requests-limit: 5
             issues-limit: 3
@@ -58,7 +59,7 @@ pages:
 
           - type: custom-api
             title: Random Fact
-            cache: 6h
+            cache: 1h
             url: https://uselessfacts.jsph.pl/api/v2/facts/random
             template: |
               <p class="size-h4 color-paragraph">{{ .JSON.String "text" }}</p>
