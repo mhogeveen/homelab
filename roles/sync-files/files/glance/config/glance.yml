@@ -22,6 +22,8 @@ pages:
               - links:
                   - title: ProxmoxVE Helper Scripts
                     url: https://community-scripts.github.io/ProxmoxVE/
+                  - title: Router Admin Console
+                    url: http://192.168.1.1
 
           - type: monitor
             cache: 1m
