@@ -20,6 +20,11 @@
 #   roles:
 #     - role:
 
+- hosts: nas
+  roles:
+    - role: sync-files
+      tags: sync-files
+
 - hosts: glance
   roles:
     - role: sync-files

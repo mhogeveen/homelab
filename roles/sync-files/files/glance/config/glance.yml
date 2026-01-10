@@ -29,8 +29,11 @@ pages:
             cache: 1m
             title: Services
             sites:
-              - title: Proxmox
+              - title: Beelink SEi13
                 url: https://proxmox.welara-turtle.ts.net
+                icon: si:proxmox
+              - title: UGREEN NASync DXP4800 Plus
+                url: https://nas.welara-turtle.ts.net
                 icon: si:proxmox
               - title: Home Assistant
                 url: https://homeassistant.welara-turtle.ts.net

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+modprobe -v i2c-dev
+ugreen_leds_cli power -on -color 0 255 0 -brightness 100
+ugreen_leds_cli netdev -off
+ugreen_leds_cli disk1 -on -color 255 255 255 -brightness 100
+ugreen_leds_cli disk2 -on -color 255 255 255 -brightness 100
+ugreen_leds_cli disk3 -off
+ugreen_leds_cli disk4 -off

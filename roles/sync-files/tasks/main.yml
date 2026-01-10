@@ -20,3 +20,22 @@
         owner: root
         group: root
         mode: "0644"
+
+- name: Synchronize nas files
+  when: inventory_hostname == 'nas'
+  block:
+    - name: Samba files
+      ansible.builtin.copy:
+        src: nas/samba/
+        dest: /etc/samba/
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Ugreen LEDs files
+      ansible.builtin.copy:
+        src: nas/ugreen-leds/
+        dest: /etc/init.d/
+        owner: root
+        group: root
+        mode: "0644"
