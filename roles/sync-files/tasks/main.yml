@@ -32,6 +32,17 @@
         group: root
         mode: "0644"
 
+- name: Synchronize qBittorrent files
+  when: inventory_hostname == 'qbittorrent'
+  block:
+    - name: Copy
+      ansible.builtin.copy:
+        src: qbittorrent/
+        dest: /docker/qbittorrent/
+        owner: root
+        group: root
+        mode: "0644"
+
 - name: Synchronize nas files
   when: inventory_hostname == 'nas'
   block:
