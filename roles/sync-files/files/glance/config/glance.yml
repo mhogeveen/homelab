@@ -44,6 +44,9 @@ pages:
               - title: Pi-hole
                 url: https://pi-hole.welara-turtle.ts.net/admin
                 icon: si:pihole
+              - title: Jellyfin
+                url: https://jellyfin.welara-turtle.ts.net
+                icon: si:jellyfin
 
           - type: split-column
             widgets:
@@ -70,6 +73,13 @@ pages:
           - type: repository
             cache: 1m
             repository: mhogeveen/homelab
+            pull-requests-limit: 5
+            issues-limit: 3
+            commits-limit: 3
+
+          - type: repository
+            cache: 1m
+            repository: mhogeveen/dotfiles
             pull-requests-limit: 5
             issues-limit: 3
             commits-limit: 3
