@@ -3,12 +3,18 @@
   pre_tasks:
     - name: Update packages
       ansible.builtin.import_tasks: pre_tasks/update_packages.yml
+      tags:
+        - always
 
     - name: Install packages
       ansible.builtin.import_tasks: pre_tasks/install_packages.yml
+      tags:
+        - always
 
     - name: Configure config directory
       ansible.builtin.import_tasks: pre_tasks/configure_config_directory.yml
+      tags:
+        - always
 
 # - hosts: proxmox
 #   roles:
