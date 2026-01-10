@@ -1,4 +1,27 @@
 ---
+- name: Check if Docker is installed
+  ansible.builtin.raw: which docker
+  ignore_errors: true
+  register: which_res
+
+- name: Install docker
+  when: which_res.stdout|trim == 'docker not found'
+  block:
+    - name: Get docker insall script
+      ansible.builtin.command: curl -fsSL https://get.docker.com -o install-docker.sh
+      args:
+        chdir: ~
+
+    - name: Run install script
+      ansible.builtin.command: sh install-docker.sh
+      args:
+        chdir: ~
+
+    - name: Delete install script
+      ansible.builtin.command: rm install-docker.sh
+      args:
+        chdir: ~
+
 - name: Compose
   community.docker.docker_compose_v2:
     project_src: /docker/{{inventory_hostname}}/
