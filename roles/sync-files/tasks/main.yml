@@ -21,6 +21,17 @@
         group: root
         mode: "0644"
 
+- name: Synchronize jellyfin files
+  when: inventory_hostname == 'jellyfin'
+  block:
+    - name: Copy
+      ansible.builtin.copy:
+        src: jellyfin/
+        dest: /docker/jellyfin/
+        owner: root
+        group: root
+        mode: "0644"
+
 - name: Synchronize nas files
   when: inventory_hostname == 'nas'
   block:

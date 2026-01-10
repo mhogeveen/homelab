@@ -38,3 +38,11 @@
       tags: sync-files
     - role: compose
       tags: compose
+
+- hosts: jellyfin
+  roles:
+    - role: sync-files
+      tags: sync-files
+    - role: compose
+      tags: compose
+
