@@ -1,17 +1,26 @@
 ---
 - name: Install packages
   become: true
-  ansible.builtin.package:
-    name:
-      - curl
-      - eza
-      - fzf
-      - git
-      - jq
-      - lazygit
-      - neovim
-      - npm
-      - stow
-      - zoxide
-      - zsh
-    state: present
+  block:
+    - name: Install - Common
+      ansible.builtin.package:
+        name:
+          - curl
+          - eza
+          - fzf
+          - git
+          - jq
+          - lazygit
+          - neovim
+          - npm
+          - stow
+          - zoxide
+          - zsh
+        state: present
+
+    - name: Install - Pi-hole
+      when: inventory_hostname == 'pi-hole'
+      ansible.builtin.package:
+        name:
+          - unbound
+        state: present
