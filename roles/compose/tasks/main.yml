@@ -7,7 +7,7 @@
 - name: Install docker
   when: "'docker: not found' in type_res.stdout"
   block:
-    - name: Get docker insall script
+    - name: Get docker install script
       ansible.builtin.command: curl -fsSL https://get.docker.com -o install-docker.sh
       args:
         chdir: ~
