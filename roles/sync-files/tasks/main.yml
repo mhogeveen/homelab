@@ -50,3 +50,14 @@
         owner: root
         group: root
         mode: "0644"
+
+- name: Synchronize gitea files
+  when: inventory_hostname == 'gitea'
+  block:
+    - name: Copy
+      ansible.builtin.copy:
+        src: gitea/
+        dest: /docker/gitea/
+        owner: root
+        group: root
+        mode: "0644"

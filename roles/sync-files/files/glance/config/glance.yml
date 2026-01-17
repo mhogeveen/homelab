@@ -47,6 +47,9 @@ pages:
               - title: Jellyfin
                 url: https://jellyfin.welara-turtle.ts.net
                 icon: si:jellyfin
+              - title: Gitea
+                url: https://gitea.welara-turtle.ts.net
+                icon: si:gitea
 
           - type: split-column
             widgets:
