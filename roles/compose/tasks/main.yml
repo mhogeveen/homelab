@@ -1,11 +1,11 @@
 ---
 - name: Check if Docker is installed
-  ansible.builtin.raw: which docker
+  ansible.builtin.raw: type docker
+  register: type_res
   ignore_errors: true
-  register: which_res
 
 - name: Install docker
-  when: which_res.stdout|trim == 'docker not found'
+  when: "'docker: not found' in type_res.stdout"
   block:
     - name: Get docker insall script
       ansible.builtin.command: curl -fsSL https://get.docker.com -o install-docker.sh
