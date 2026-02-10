@@ -1,0 +1,62 @@
+---
+- name: Update packages
+  become: true
+  when: (ansible_facts['distribution'] == "Ubuntu") or (ansible_facts['distribution'] == "Debian")
+  block:
+    - name: apt update
+      ansible.builtin.apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+      async: 45
+      poll: 5
+
+    - name: apt upgrade
+      ansible.builtin.apt:
+        upgrade: dist
+      async: 45
+      poll: 5
+
+    - name: remove old packages and clean cache
+      ansible.builtin.apt:
+        autoremove: yes
+        autoclean: yes
+        clean: yes
+      async: 45
+      poll: 5
+
+- name: Install packages
+  become: true
+  block:
+    - name: Install - Common
+      ansible.builtin.package:
+        name:
+          - curl
+          - eza
+          - fzf
+          - git
+          - jq
+          - lazygit
+          - neovim
+          - npm
+          - stow
+          - zoxide
+          - zsh
+        state: present
+      async: 45
+      poll: 5
+
+    - name: Install - Pi-hole
+      when: inventory_hostname == 'pi-hole'
+      ansible.builtin.package:
+        name:
+          - unbound
+        state: present
+      async: 45
+      poll: 5
+
+- name: Create the '$HOME/.config' directory if it does not exist
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.config"
+    state: directory
+    mode: "0755"

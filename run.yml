@@ -1,32 +1,29 @@
 ---
-- hosts: all
-  pre_tasks:
-    - name: Update packages
-      ansible.builtin.import_tasks: pre_tasks/update_packages.yml
-      tags:
-        - always
-
-    - name: Install packages
-      ansible.builtin.import_tasks: pre_tasks/install_packages.yml
-      tags:
-        - always
-
-    - name: Configure config directory
-      ansible.builtin.import_tasks: pre_tasks/configure_config_directory.yml
-      tags:
-        - always
-
-# - hosts: proxmox
-#   roles:
-#     - role:
-
 - hosts: nas
   roles:
+    - role: update
+      tags: update
     - role: sync-files
       tags: sync-files
 
+- hosts: proxmox
+  roles:
+    - role: update
+      tags: update
+
+- hosts: gitea
+  roles:
+    - role: update
+      tags: update
+    - role: sync-files
+      tags: sync-files
+    - role: compose
+      tags: compose
+
 - hosts: glance
   roles:
+    - role: update
+      tags: update
     - role: sync-files
       tags: sync-files
     - role: compose
@@ -34,20 +31,23 @@
 
 - hosts: jellyfin
   roles:
+    - role: update
+      tags: update
     - role: sync-files
       tags: sync-files
     - role: compose
       tags: compose
+
+- hosts: pi-hole
+  roles:
+    - role: update
+      tags: update
+
 
 - hosts: qbittorrent
   roles:
-    - role: sync-files
-      tags: sync-files
-    - role: compose
-      tags: compose
-
-- hosts: gitea
-  roles:
+    - role: update
+      tags: update
     - role: sync-files
       tags: sync-files
     - role: compose

@@ -6,3 +6,6 @@ sync-files HOST:
 
 compose HOST:
   @ansible-playbook run.yml --limit {{HOST}} --tags compose
+
+update HOST:
+  @ansible-playbook run.yml --limit {{HOST}} --tags update
