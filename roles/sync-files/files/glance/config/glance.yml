@@ -24,6 +24,8 @@ pages:
                     url: https://community-scripts.github.io/ProxmoxVE/
                   - title: Router Admin Console
                     url: http://192.168.1.1
+                  - title: Dashboard Icons
+                    url: https://dashboardicons.com/icons
 
           - type: monitor
             cache: 1m
