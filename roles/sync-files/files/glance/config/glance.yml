@@ -50,6 +50,9 @@ pages:
               - title: Gitea
                 url: https://gitea.welara-turtle.ts.net
                 icon: di:gitea
+              - title: Pulse
+                url: https://pulse.welara-turtle.ts.net
+                icon: di:pulse
 
           - type: split-column
             widgets:

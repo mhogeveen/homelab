@@ -43,6 +43,10 @@
     - role: update
       tags: update
 
+- hosts: pulse
+  roles:
+    - role: update
+      tags: update
 
 - hosts: qbittorrent
   roles:
