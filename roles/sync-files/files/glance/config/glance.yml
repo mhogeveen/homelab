@@ -31,25 +31,25 @@ pages:
             sites:
               - title: Beelink SEi13
                 url: https://proxmox.welara-turtle.ts.net
-                icon: si:proxmox
+                icon: di:proxmox
               - title: UGREEN NASync DXP4800 Plus
                 url: https://nas.welara-turtle.ts.net
-                icon: si:proxmox
+                icon: di:proxmox
               - title: Home Assistant
                 url: https://homeassistant.welara-turtle.ts.net
-                icon: si:homeassistant
+                icon: di:home-assistant
               - title: qBittorrent
                 url: https://qbittorrent.welara-turtle.ts.net
-                icon: si:qbittorrent
+                icon: di:qbittorrent
               - title: Pi-hole
                 url: https://pi-hole.welara-turtle.ts.net/admin
-                icon: si:pihole
+                icon: di:pi-hole
               - title: Jellyfin
                 url: https://jellyfin.welara-turtle.ts.net
-                icon: si:jellyfin
+                icon: di:jellyfin
               - title: Gitea
                 url: https://gitea.welara-turtle.ts.net
-                icon: si:gitea
+                icon: di:gitea
 
           - type: split-column
             widgets:
