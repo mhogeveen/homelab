@@ -55,6 +55,9 @@ pages:
               - title: Pulse
                 url: https://pulse.welara-turtle.ts.net
                 icon: di:pulse
+              - title: BentoPDF
+                url: https://bentopdf.welara-turtle.ts.net
+                icon: di:bentopdf
 
           - type: split-column
             widgets:

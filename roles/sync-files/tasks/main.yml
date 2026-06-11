@@ -61,3 +61,14 @@
         owner: root
         group: root
         mode: "0644"
+
+- name: Synchronize bentopdf files
+  when: inventory_hostname == 'bentopdf'
+  block:
+    - name: Copy
+      ansible.builtin.copy:
+        src: bentopdf/
+        dest: /docker/bentopdf/
+        owner: root
+        group: root
+        mode: "0644"

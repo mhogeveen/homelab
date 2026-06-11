@@ -11,6 +11,15 @@
     - role: update
       tags: update
 
+- hosts: bentopdf
+  roles:
+    - role: update
+      tags: update
+    - role: sync-files
+      tags: sync-files
+    - role: compose
+      tags: compose
+
 - hosts: gitea
   roles:
     - role: update
