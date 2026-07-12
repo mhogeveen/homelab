@@ -1,7 +1,39 @@
 ---
+- name: Synchronize bentopdf files
+  when: inventory_hostname == 'bentopdf'
+  block:
+    - name: Copy
+      ansible.builtin.copy:
+        src: bentopdf/
+        dest: /docker/bentopdf/
+        owner: root
+        group: root
+        mode: "0644"
+
+- name: Synchronize gitea files
+  when: inventory_hostname == 'gitea'
+  block:
+    - name: Set .env
+      ansible.builtin.template:
+        src: gitea/env.j2
+        dest: /docker/gitea/.env
+
+    - name: Copy
+      ansible.builtin.copy:
+        src: gitea/
+        dest: /docker/gitea/
+        owner: root
+        group: root
+        mode: "0644"
+
 - name: Synchronize glance files
   when: inventory_hostname == 'glance'
   block:
+    - name: Set .env
+      ansible.builtin.template:
+        src: glance/env.j2
+        dest: /docker/glance/.env
+
     - name: Copy
       ansible.builtin.copy:
         src: glance/
@@ -17,17 +49,6 @@
       ansible.builtin.copy:
         src: jellyfin/
         dest: /docker/jellyfin/
-        owner: root
-        group: root
-        mode: "0644"
-
-- name: Synchronize qBittorrent files
-  when: inventory_hostname == 'qbittorrent'
-  block:
-    - name: Copy
-      ansible.builtin.copy:
-        src: qbittorrent/
-        dest: /docker/qbittorrent/
         owner: root
         group: root
         mode: "0644"
@@ -51,24 +72,18 @@
         group: root
         mode: "0644"
 
-- name: Synchronize gitea files
-  when: inventory_hostname == 'gitea'
+- name: Synchronize qBittorrent files
+  when: inventory_hostname == 'qbittorrent'
   block:
-    - name: Copy
-      ansible.builtin.copy:
-        src: gitea/
-        dest: /docker/gitea/
-        owner: root
-        group: root
-        mode: "0644"
+    - name: Set .env
+      ansible.builtin.template:
+        src: qbittorrent/env.j2
+        dest: /docker/qbittorrent/.env
 
-- name: Synchronize bentopdf files
-  when: inventory_hostname == 'bentopdf'
-  block:
     - name: Copy
       ansible.builtin.copy:
-        src: bentopdf/
-        dest: /docker/bentopdf/
+        src: qbittorrent/
+        dest: /docker/qbittorrent/
         owner: root
         group: root
         mode: "0644"
@@ -76,6 +91,11 @@
 - name: Synchronize syncthing files
   when: inventory_hostname == 'syncthing'
   block:
+    - name: Set .env
+      ansible.builtin.template:
+        src: syncthing/env.j2
+        dest: /docker/syncthing/.env
+
     - name: Copy
       ansible.builtin.copy:
         src: syncthing/
