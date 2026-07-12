@@ -65,3 +65,12 @@
       tags: sync-files
     - role: compose
       tags: compose
+
+- hosts: syncthing
+  roles:
+    - role: update
+      tags: update
+    - role: sync-files
+      tags: sync-files
+    - role: compose
+      tags: compose

@@ -72,3 +72,14 @@
         owner: root
         group: root
         mode: "0644"
+
+- name: Synchronize syncthing files
+  when: inventory_hostname == 'syncthing'
+  block:
+    - name: Copy
+      ansible.builtin.copy:
+        src: syncthing/
+        dest: /docker/syncthing/
+        owner: root
+        group: root
+        mode: "0644"

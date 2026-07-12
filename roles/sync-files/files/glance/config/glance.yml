@@ -58,6 +58,9 @@ pages:
               - title: BentoPDF
                 url: https://bentopdf.welara-turtle.ts.net
                 icon: di:bentopdf
+              - title: Syncthing Server
+                url: https://syncthing.welara-turtle.ts.net
+                icon: di:syncthing
 
           - type: split-column
             widgets:

@@ -1,0 +1,20 @@
+---
+services:
+  syncthing:
+    image: syncthing/syncthing
+    container_name: syncthing
+    hostname: syncthing
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - STGUIADDRESS=${STGUIADDRESS}
+    volumes:
+      - ${PATH_TO_SYNC_FROM_1}:${PATH_TO_SYNC_TO_1}
+    network_mode: host
+    restart: unless-stopped
+    env_file: .env
+    healthcheck:
+      test: curl -fkLsS -m 2 127.0.0.1:8384/rest/noauth/health | grep -o --color=never OK || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 3
