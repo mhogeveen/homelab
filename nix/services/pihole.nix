@@ -33,7 +33,10 @@
         url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
         description = "Steven Black's unified hosts (Pi-hole default)";
       }
-      # TODO: copy any extra adlists from the old Pi-hole (Settings > Lists)
+      {
+	url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt";
+	description = "Hagezi DNS blocklist PRO";
+      }
     ];
     settings = {
       dns = {
@@ -41,7 +44,6 @@
         # Answer LAN and tailnet clients; the router keeps :53 off the internet
         listeningMode = "ALL";
         domainNeeded = true;
-        # TODO: copy Local DNS records from the old Pi-hole, e.g. "192.168.1.20 nas.lan"
         hosts = [ ];
       };
     };
