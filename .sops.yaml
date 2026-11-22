@@ -1,0 +1,13 @@
+# sops/age recipients. Edit secrets with: just edit-secrets
+keys:
+  # ~/.ssh/id_ed25519 on prometheus (SSH public key; sops decrypts with the private key directly)
+  - &maarten ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILX693dWRTDMFdCzdmmRGG/ZTjKRPqeOt/DXajkicjKB
+  # hestia host key, add after install, then `just rekey`:
+  #   ssh-keyscan -t ed25519 <hestia-ip> | ssh-to-age
+  # - &hestia age1...
+creation_rules:
+  - path_regex: secrets/hestia\.yaml$
+    key_groups:
+      - age:
+          - *maarten
+          # - *hestia
