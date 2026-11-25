@@ -9,6 +9,21 @@
   '';
   systemd.services.pihole-ftl.serviceConfig.EnvironmentFile = config.sops.templates."pihole.env".path;
 
+  # pihole-ftl-setup re-adds every list on each run and exits 1 when the API answers
+  # "already present". Start from an empty adlist table so the run succeeds and the
+  # lists below are the only ones (removing one here then removes it from Pi-hole too).
+  # gravity/antigravity reference adlist, and the same run rebuilds them (`pihole -g`),
+  # so blocking only pauses for the few seconds the setup takes.
+  # Skipped on a fresh install: sqlite3 would create an empty gravity.db, and the setup
+  # only builds the database when the file is missing.
+  systemd.services.pihole-ftl-setup.preStart = ''
+    db=/var/lib/pihole/gravity.db
+    if [ -f "$db" ]; then
+      ${config.services.pihole-ftl.package}/bin/pihole-FTL sqlite3 "$db" \
+        'DELETE FROM gravity; DELETE FROM antigravity; DELETE FROM adlist;'
+    fi
+  '';
+
   services.unbound = {
     enable = true;
     resolveLocalQueries = false;
