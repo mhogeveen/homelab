@@ -1,10 +1,10 @@
-# HP ProDesk 600 G6 DM: two NVMe drives. Find the ids with `ls -l /dev/disk/by-id/`
-# on the installer.
+# HP ProDesk 600 G6 DM: 256 GB NVMe (system) + 1 TB SATA HDD (backups). Find the ids
+# with `ls -l /dev/disk/by-id/` on the installer.
 {
-  # WD Black 1 TB in M.2 slot 1: boot + system + Incus pool
+  # Included 256 GB NVMe: boot + system + Incus pool (HAOS). ~75 GB used today
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/disk/by-id/nvme-WD_BLACK_CHANGE-ME";
+    device = "/dev/disk/by-id/nvme-CHANGE-ME";
     content = {
       type = "gpt";
       partitions = {
@@ -54,11 +54,11 @@
     };
   };
 
-  # Included 256 GB NVMe in M.2 slot 2: local backups (MySQL dumps + restic repo),
+  # 1 TB 2.5" SATA HDD in the drive bay: local backups (MySQL dumps + restic repo),
   # so a dead system disk doesn't take the backups with it
   disko.devices.disk.backup = {
     type = "disk";
-    device = "/dev/disk/by-id/nvme-CHANGE-ME";
+    device = "/dev/disk/by-id/ata-CHANGE-ME";
     content = {
       type = "gpt";
       partitions.backup = {

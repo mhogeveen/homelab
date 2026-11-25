@@ -4,7 +4,7 @@ Anything and everything regarding my homelab setup.
 
 ## Hosts
 
-- **hestia** (NixOS, `nix/hosts/hestia`): HP ProDesk 600 G6 DM (i3-10100T, 32 GB, WD Black 1 TB + 256 GB NVMe). Replaces the Beelink SEi13 Proxmox host. Runs Pi-hole, Gitea, Glance and BentoPDF natively, and Home Assistant OS as an Incus VM. See [docs/migration.md](docs/migration.md).
+- **hestia** (NixOS, `nix/hosts/hestia`): HP ProDesk 600 G6 DM (i3-10100T, 32 GB, 256 GB NVMe system + 1 TB SATA HDD backups). Replaces the Beelink SEi13 Proxmox host. Runs Pi-hole, Gitea, Glance and BentoPDF natively, and Home Assistant OS as an Incus VM. See [docs/migration.md](docs/migration.md).
 - **nas** (Proxmox, Ansible): UGREEN NASync DXP4800 Plus with Samba, Jellyfin, qBittorrent and Syncthing.
 
 ## Technologies

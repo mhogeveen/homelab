@@ -34,8 +34,8 @@
         description = "Steven Black's unified hosts (Pi-hole default)";
       }
       {
-	url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt";
-	description = "Hagezi DNS blocklist PRO";
+        url = "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt";
+        description = "Hagezi DNS blocklist PRO";
       }
     ];
     settings = {

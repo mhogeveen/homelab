@@ -17,13 +17,20 @@ Beelink guests.
 
 Nothing on the Beelink is backed up today.
 
-- HA: Settings > System > Backups > *Create backup* (full), then download it.
+- HA: daily backups already go to the NAS. Make sure you have the backup **encryption key**
+  (the emergency kit under Settings > System > Backups > *Backup settings*), because the
+  restore asks for it. Take one extra manual backup right before shutting down VM 100.
 - On the Beelink: `vzdump 101 102 103 106 --dumpdir /mnt/<nas-share> --mode snapshot`.
 
 ## 2. Hardware prep (HP ProDesk 600 G6 DM)
 
-- **Drives:** WD Black 1 TB in M.2 slot 1 (system and boot), the included 256 GB in slot 2
-  (backups). See `nix/hosts/hestia/disko.nix`.
+- **Drives** (see `nix/hosts/hestia/disko.nix`):
+  - The included 256 GB NVMe stays in its M.2 slot. It's the system and boot disk, and holds
+    the HAOS VM.
+  - The 1 TB 2.5" SATA HDD goes in the drive bay as the backup disk. The bay needs HP's
+    *Desktop Mini 2.5-inch SATA Drive Bay kit v2* (13L70AA), or at least the genuine HP
+    SATA cable, if the unit came without one.
+  - The second M.2 slot stays free for a future NVMe.
 - **RAM:** the 32 GB module in one slot. A second 32 GB later gives 64 GB in dual channel.
 - **Plug the ZBT-2 in via a USB extension cable** to keep it away from USB 3 interference.
 - **Optional:** update the BIOS first (HP support site, or *Update System BIOS* in the menu).
