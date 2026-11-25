@@ -26,7 +26,11 @@
         SSH_PORT = 222;
         SSH_LISTEN_PORT = 222;
       };
-      service.DISABLE_REGISTRATION = true;
+      service = {
+        DISABLE_REGISTRATION = true;
+        # Nothing is visible without logging in, public repos included
+        REQUIRE_SIGNIN_VIEW = true;
+      };
       session.COOKIE_SECURE = true;
     };
   };
