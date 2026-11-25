@@ -1,11 +1,15 @@
 # Native Gitea on SQLite (/var/lib/gitea/data/gitea.db). It only hosts a few mirrors, so it
 # was set up fresh instead of migrating the old MySQL container.
 {
+  config,
   lib,
   tailnet,
   ...
 }:
 {
+  # `gitea admin ...` on the host (the module doesn't put the CLI on PATH)
+  environment.systemPackages = [ config.services.gitea.package ];
+
   services.gitea = {
     enable = true;
     database.type = "sqlite3";

@@ -96,8 +96,9 @@ their sources again.
 3. Registration is disabled, so create the admin on hestia:
 
    ```sh
+   cd /var/lib/gitea
    sudo -u gitea gitea admin user create --admin --username <user> --email <email> \
-     --random-password --config /var/lib/gitea/custom/conf/app.ini
+     --random-password --must-change-password --config /var/lib/gitea/custom/conf/app.ini
    ```
 
 4. Log in at https://gitea.welara-turtle.ts.net with the printed password, change it and set
