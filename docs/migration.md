@@ -38,8 +38,8 @@ Nothing on the Beelink is backed up today.
   - *Advanced > System Options*: **Virtualization Technology (VTx)** and **VT for Directed
     I/O (VTd)** enabled.
   - *Advanced > Power-On Options*: **After Power Loss → Power On**.
-  - *Advanced > Secure Boot Configuration*: **Legacy Support off, Secure Boot off**
-    (systemd-boot is unsigned).
+  - *Advanced > Secure Boot Configuration*: **Secure Boot off** (systemd-boot is unsigned).
+    The G6 boots UEFI-only, so there's no Legacy Support option to change.
   - *Advanced > Boot Options*: USB boot enabled, so you can boot the installer.
 
 ## 3. Prepare the config
