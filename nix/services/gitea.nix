@@ -33,10 +33,12 @@
     };
   };
 
-  # The built-in SSH server binds a port < 1024
+  # The built-in SSH server binds a port < 1024. PrivateUsers must be off: inside a user
+  # namespace the capability doesn't cover the host's ports ("bind: permission denied").
   systemd.services.gitea.serviceConfig = {
     AmbientCapabilities = lib.mkForce "CAP_NET_BIND_SERVICE";
     CapabilityBoundingSet = lib.mkForce "CAP_NET_BIND_SERVICE";
+    PrivateUsers = lib.mkForce false;
   };
 
   networking.firewall.allowedTCPPorts = [ 222 ];

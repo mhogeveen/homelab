@@ -27,8 +27,12 @@
       ...
     }:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      # hestia's platform plus the workstations that deploy it
+      forAllSystems = nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
     in
     {
       # Replaces the Proxmox host 'proxmox' (Beelink SEi13)
@@ -41,16 +45,19 @@
         ];
       };
 
-      formatter.${system} = pkgs.nixfmt-tree;
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
-      devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          ansible # still used for the NAS and its LXCs
-          just
-          nixos-anywhere
-          sops
-          ssh-to-age
-        ];
-      };
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.mkShell {
+          packages = with nixpkgs.legacyPackages.${system}; [
+            ansible # still used for the NAS and its LXCs
+            just
+            nixos-anywhere
+            nixos-rebuild-ng # for `just deploy` from macOS
+            sops
+            ssh-to-age
+          ];
+        };
+      });
     };
 }

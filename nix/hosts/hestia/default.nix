@@ -48,6 +48,7 @@
   };
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILX693dWRTDMFdCzdmmRGG/ZTjKRPqeOt/DXajkicjKB maarten@prometheus"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyjQYrZQY4PdQHC7/60s9fGLrHS0pYSdI3kVa5L1y6R maarten@mbp.local"
   ];
 
   sops = {

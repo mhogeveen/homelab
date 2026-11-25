@@ -4,7 +4,7 @@
   # Included 256 GB NVMe: boot + system + Incus pool (HAOS). ~75 GB used today
   disko.devices.disk.main = {
     type = "disk";
-    device = "/dev/disk/by-id/nvme-CHANGE-ME";
+    device = "/dev/disk/by-id/nvme-SK_hynix_BC511_HFM256GDJTNI-82A0A_NY04N069610704U4R";
     content = {
       type = "gpt";
       partitions = {
@@ -58,7 +58,7 @@
   # so a dead system disk doesn't take the backups with it
   disko.devices.disk.backup = {
     type = "disk";
-    device = "/dev/disk/by-id/ata-CHANGE-ME";
+    device = "/dev/disk/by-id/ata-ST1000LM024_HN-M101MBB_S2SMJ9KD501478";
     content = {
       type = "gpt";
       partitions.backup = {

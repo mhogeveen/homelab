@@ -2,12 +2,15 @@
 keys:
   # ~/.ssh/id_ed25519 on prometheus (SSH public key; sops decrypts with the private key directly)
   - &maarten ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILX693dWRTDMFdCzdmmRGG/ZTjKRPqeOt/DXajkicjKB
+  # ~/.ssh/id_ed25519 on mbp
+  - &mbp ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyjQYrZQY4PdQHC7/60s9fGLrHS0pYSdI3kVa5L1y6R
   # hestia host key, add after install, then `just rekey`:
   #   ssh-keyscan -t ed25519 <hestia-ip> | ssh-to-age
-  # - &hestia age1...
+  - &hestia age17nleneuqh0nk03s4w9gtka0syj4jphm92nwfvvu8l40tkhdmlawqeps2k6
 creation_rules:
   - path_regex: secrets/hestia\.yaml$
     key_groups:
       - age:
           - *maarten
-          # - *hestia
+          - *mbp
+          - *hestia

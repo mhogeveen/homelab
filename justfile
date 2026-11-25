@@ -1,14 +1,17 @@
+# nix develop on macOS sets a TMPDIR too long for SSH control sockets
+export TMPDIR := "/tmp"
+
 # --- NixOS (hestia) ---
 
 build HOST="hestia":
   @nixos-rebuild build --flake .#{{HOST}}
 
 deploy HOST="hestia" TARGET="root@192.168.1.11":
-  @nixos-rebuild switch --flake .#{{HOST}} --target-host {{TARGET}}
+  @nixos-rebuild switch --flake .#{{HOST}} --target-host {{TARGET}} --build-host {{TARGET}}
 
 # First install from a NixOS installer ISO; also writes hardware-configuration.nix
 install IP HOST="hestia":
-  @nix run nixpkgs#nixos-anywhere -- --flake .#{{HOST}} \
+  @nix run nixpkgs#nixos-anywhere -- --flake .#{{HOST}} --build-on remote \
     --generate-hardware-config nixos-generate-config ./nix/hosts/{{HOST}}/hardware-configuration.nix \
     root@{{IP}}
 

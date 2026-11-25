@@ -4,7 +4,7 @@
 # HAOS backs itself up (Settings > System > Backups, to a NAS Samba share).
 { config, ... }:
 let
-  nas = "192.168.1.CHANGE-ME"; # NAS LAN IP; hestia doesn't use MagicDNS
+  nas = "192.168.1.150"; # NAS LAN IP; hestia doesn't use MagicDNS
 
   common = {
     initialize = true;
