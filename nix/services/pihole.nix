@@ -1,6 +1,6 @@
 # Pi-hole v6 (FTL + web UI) with unbound as the recursive upstream, same as CT 102.
 # Config is immutable on NixOS: adlists and local records live here, not in the UI.
-{ config, ... }:
+{ config, tailnet, ... }:
 {
   sops.secrets.pihole_password = { };
   # FTL reads FTLCONF_* overrides from the environment; keeps the password out of the store
@@ -61,6 +61,9 @@
         domainNeeded = true;
         hosts = [ ];
       };
+      # MagicDNS names (<node>.<tailnet>) only resolve via Tailscale's resolver. Lets
+      # hestia itself (Glance's monitors, etc.) and LAN clients resolve them.
+      misc.dnsmasq_lines = [ "server=/${tailnet}/100.100.100.100" ];
     };
   };
 

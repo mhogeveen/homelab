@@ -118,26 +118,33 @@ Neither has state. Stop CT 101 and CT 106, remove them from the tailnet, then re
 
 The cleanest path is a fresh HAOS restored from the backup made in step 1:
 
+nixpkgs' Incus doesn't ship `incus-migrate`, so create an empty VM and write the image to
+its disk:
+
 ```sh
-# On hestia. Use the latest generic-x86-64 release from github.com/home-assistant/operating-system
-curl -LO https://github.com/home-assistant/operating-system/releases/download/<ver>/haos_generic-x86-64-<ver>.img.xz
-xz -d haos_generic-x86-64-<ver>.img.xz
+# On hestia. Use the OVA image: generic-x86-64 is for bare metal, and in a VM the
+# Supervisor flags it as "Incorrect OS image for virtualization" (unsupported).
+# Take the latest release that has an OVA build
+# (github.com/home-assistant/operating-system; some point releases are Raspberry Pi only)
+v=<ver>
+curl -LO https://github.com/home-assistant/operating-system/releases/download/$v/haos_ova-$v.qcow2.xz
+nix shell nixpkgs#xz -c xz -d haos_ova-$v.qcow2.xz
+nix shell nixpkgs#qemu-utils -c qemu-img convert -O raw haos_ova-$v.qcow2 haos_ova-$v.img
 
-# Interactive: choose "virtual machine", name it "haos", give it the .img path,
-# UEFI yes, Secure Boot no
-incus-migrate
-
-incus config set haos limits.cpu=4 limits.memory=8GiB boot.autostart=true
+incus init haos --vm --empty \
+  -c limits.cpu=4 -c limits.memory=8GiB -c boot.autostart=true -c security.secureboot=false
 incus config device override haos root size=32GiB
 # Keep the old MAC, so the router's DHCP reservation and IP stay the same
 incus config set haos volatile.eth0.hwaddr=02:b8:44:43:bb:25
+incus config device add haos zbt2 usb vendorid=303a productid=831a
+dd if=haos_ova-$v.img bs=4M conv=notrunc,sparse \
+  of=/var/lib/incus/storage-pools/default/virtual-machines/haos/root.img
 ```
 
 Shut down VM 100 on Proxmox **before** starting the new VM, because both use the same MAC.
 Then:
 
 ```sh
-incus config device add haos zbt2 usb vendorid=303a productid=831a
 incus start haos
 incus console haos --type=vga    # or open it from the Incus UI
 ```
@@ -145,8 +152,8 @@ incus console haos --type=vga    # or open it from the Incus UI
 Open HA at its old IP. During onboarding, choose **Restore from backup**. Check Zigbee/Thread
 (ZHA or Z2M sees the ZBT-2) and the Tailscale add-on.
 
-> Alternative: on Proxmox, `qemu-img convert -O qcow2 /dev/flash/vm-100-disk-0 haos.qcow2`,
-> copy that to hestia and give it to `incus-migrate` instead of the fresh image. That keeps the VM bit-for-bit
+> Alternative: on Proxmox, `qemu-img convert -O raw /dev/flash/vm-100-disk-0 haos.img`, copy
+> that to hestia and `dd` it instead of the fresh image. That keeps the VM bit-for-bit
 > identical, but the backup restore is easier to reason about.
 
 ## 6. Incus UI
