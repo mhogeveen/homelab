@@ -63,6 +63,7 @@
     fzf
     git
     jq
+    just
     lazygit
     neovim
     zoxide

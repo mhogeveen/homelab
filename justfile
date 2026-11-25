@@ -9,6 +9,10 @@ build HOST="hestia":
 deploy HOST="hestia" TARGET="root@192.168.1.11":
   @nixos-rebuild switch --flake .#{{HOST}} --target-host {{TARGET}} --build-host {{TARGET}}
 
+# Build and switch on the host itself (run on hestia)
+switch HOST="hestia":
+  @nixos-rebuild switch --flake .#{{HOST}}
+
 # First install from a NixOS installer ISO; also writes hardware-configuration.nix
 install IP HOST="hestia":
   @nix run nixpkgs#nixos-anywhere -- --flake .#{{HOST}} --build-on remote \
