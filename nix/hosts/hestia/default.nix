@@ -56,12 +56,20 @@
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   };
 
+  # System-wide /etc/gitconfig, for committing from the clone on hestia
+  programs.git = {
+    enable = true;
+    config.user = {
+      name = "Maarten Hogeveen";
+      email = "mhogeveen94@gmail.com";
+    };
+  };
+
   # What roles/update installed on every LXC
   environment.systemPackages = with pkgs; [
     curl
     eza
     fzf
-    git
     jq
     just
     lazygit
