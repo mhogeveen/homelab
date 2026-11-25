@@ -54,7 +54,7 @@
     };
   };
 
-  # 1 TB 2.5" SATA HDD in the drive bay: local backups (MySQL dumps + restic repo),
+  # 1 TB 2.5" SATA HDD in the drive bay: local backups (restic repo),
   # so a dead system disk doesn't take the backups with it
   disko.devices.disk.backup = {
     type = "disk";

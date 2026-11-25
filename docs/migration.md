@@ -86,57 +86,27 @@ If that happens anyway, delete both, then `systemctl restart tsnsrv-<name>` on h
 
 ### Gitea
 
-`nix/services/gitea.nix` runs Gitea 1.27.x from nixpkgs. Gitea can't downgrade, so check
-the old version first:
+The old Gitea only hosted a few mirrors, so it isn't migrated. Hestia runs a fresh Gitea on
+SQLite (`nix/services/gitea.nix`) and the mirrors are recreated, so Gitea fetches them from
+their sources again.
 
-```sh
-ssh root@gitea 'docker exec gitea gitea --version'
-```
+1. Note each mirror's source URL (old UI: the repo's *Settings > Repository*).
+2. Stop CT 103, remove `gitea` (and `gitea-1`, if it exists) from the tailnet, then
+   `systemctl restart tsnsrv-gitea`.
+3. Registration is disabled, so create the admin on hestia:
 
-If the old version is newer, wait for nixpkgs to catch up or override `services.gitea.package`.
+   ```sh
+   sudo -u gitea gitea admin user create --admin --username <user> --email <email> \
+     --random-password --config /var/lib/gitea/custom/conf/app.ini
+   ```
 
-```sh
-# On the old LXC: stop Gitea, dump the DB and copy out the data volume
-ssh root@gitea 'cd /docker/gitea && docker compose stop gitea \
-  && docker compose exec db sh -c "mysqldump -u root -p\"\$MYSQL_ROOT_PASSWORD\" --single-transaction gitea" > /root/gitea.sql \
-  && docker run --rm -v gitea_gitea:/data -v /root:/out alpine tar czf /out/gitea-data.tgz -C /data .'
-scp root@gitea:/root/{gitea.sql,gitea-data.tgz} .
-```
+4. Log in at https://gitea.welara-turtle.ts.net with the printed password, change it and set
+   up 2FA.
+5. Recreate each mirror with *+ > New Migration*, ticking *This repository will be a mirror*.
+   A private source needs an access token.
 
-Then, on hestia:
-
-```sh
-systemctl stop gitea
-mysql gitea < gitea.sql
-mkdir /tmp/g && tar xzf gitea-data.tgz -C /tmp/g
-# container layout          -> NixOS layout
-# /data/git/repositories    -> /var/lib/gitea/repositories
-# /data/git/lfs             -> /var/lib/gitea/data/lfs
-# /data/gitea/{avatars,attachments,packages,...} -> /var/lib/gitea/data/
-rsync -a /tmp/g/git/repositories/ /var/lib/gitea/repositories/
-rsync -a /tmp/g/gitea/ /var/lib/gitea/data/ --exclude conf --exclude log --exclude sessions
-```
-
-Carry the secrets over from the old `/data/gitea/conf/app.ini`, one value per file. Without
-`SECRET_KEY`, 2FA and other encrypted data can't be read.
-
-```sh
-cd /var/lib/gitea/custom/conf
-for k in SECRET_KEY:secret_key INTERNAL_TOKEN:internal_token; do
-  grep "^${k%%:*}" /tmp/g/gitea/conf/app.ini | cut -d= -f2- | tr -d ' ' > ${k##*:}
-done
-# [oauth2] JWT_SECRET -> oauth2_jwt_secret, [server] LFS_JWT_SECRET -> lfs_jwt_secret (if present)
-chown -R gitea:gitea /var/lib/gitea
-systemctl start gitea
-sudo -u gitea gitea admin regenerate hooks --config /var/lib/gitea/custom/conf/app.ini
-```
-
-Remove `gitea` from the tailnet, restart `tsnsrv-gitea`, then log in and check repos and 2FA.
-Update the SSH remotes, because the host changed and the port is still 222:
-
-```sh
-git remote set-url origin ssh://git@hestia.welara-turtle.ts.net:222/<owner>/<repo>.git
-```
+SSH clones use the host's node and port 222:
+`ssh://git@hestia.welara-turtle.ts.net:222/<owner>/<repo>.git`.
 
 ### Glance and BentoPDF
 

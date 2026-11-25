@@ -1,20 +1,14 @@
-# Native Gitea on MySQL 8 (matches the old mysql:8 container, so the dump imports cleanly).
-# createDatabase uses socket auth, so no database password is needed anymore.
+# Native Gitea on SQLite (/var/lib/gitea/data/gitea.db). It only hosts a few mirrors, so it
+# was set up fresh instead of migrating the old MySQL container.
 {
   lib,
-  pkgs,
   tailnet,
   ...
 }:
 {
-  services.mysql.package = pkgs.mysql84;
-
   services.gitea = {
     enable = true;
-    database = {
-      type = "mysql";
-      createDatabase = true;
-    };
+    database.type = "sqlite3";
     settings = {
       server = {
         DOMAIN = "gitea.${tailnet}";
