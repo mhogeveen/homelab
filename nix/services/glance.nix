@@ -78,11 +78,7 @@ in
                     (site "UGREEN NASync DXP4800 Plus" "nas" "di:proxmox")
                     (site "Home Assistant" "homeassistant" "di:home-assistant")
                     (site "qBittorrent" "qbittorrent" "di:qbittorrent")
-                    {
-                      title = "Pi-hole";
-                      url = "https://pi-hole.${tailnet}/admin";
-                      icon = "di:pi-hole";
-                    }
+                    (site "Pi-hole" "pi-hole" "di:pi-hole")
                     (site "Jellyfin" "jellyfin" "di:jellyfin")
                     (site "Gitea" "gitea" "di:gitea")
                     (site "BentoPDF" "bentopdf" "di:bentopdf")
