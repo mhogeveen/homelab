@@ -10,5 +10,9 @@
     authKeyFile = config.sops.secrets.tailscale_authkey.path;
     # The host resolves through its own Pi-hole, not MagicDNS
     extraUpFlags = [ "--accept-dns=false" ];
+    # Tailscale SSH: ssh over the tailnet is authorized by the tailnet policy's `ssh`
+    # rules, not by OpenSSH keys (LAN ssh still goes to OpenSSH). extraSetFlags runs on
+    # every start, unlike extraUpFlags, which only applies at the first login.
+    extraSetFlags = [ "--ssh" ];
   };
 }
