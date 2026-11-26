@@ -75,6 +75,7 @@
     lazygit
     neovim
     zoxide
+    btop
   ];
 
   system.stateVersion = "26.05";
